@@ -1,0 +1,38 @@
+module.exports = {
+  development: [
+      { key: '/core', url: 'http://127.0.0.1:28888' },
+      { key: '/temu', url: 'http://127.0.0.1:25550' },
+      { key: '/tiktok', url: 'http://127.0.0.1:35548' },
+      { key: '/sf-factory/', url: 'http://127.0.0.1:35560' },
+      { key: '/sf-factory-v2', url: 'http://127.0.0.1:35561' },
+      { key: '/ozon', url: 'http://127.0.0.1:35551' },
+      { key: '/dxm', url: 'http://127.0.0.1:35552' },
+      { key: '/profit', url: 'http://localhost:35556' },
+      { key: '/mkd', url: 'http://127.0.0.1:35557' },
+      { key: '/customize_v3', url: 'http://127.0.0.1:29931' },
+      { key: '/customize_v2', url: 'http://127.0.0.1:29941' },
+      { key: '/shein', url: 'http://127.0.0.1:35549' },
+      { key: '/chat', url: 'http://34.217.178.223:35559' },
+      { key: '/product_sys', url: 'http://127.0.0.1:35571' },
+      { key: '/factory_warehouse', url: 'http://127.0.0.1:38889' },
+
+      { key: '/five_miles', url: 'http://127.0.0.1:28885' },
+  ],
+  production: [
+      { key: '/core', url: 'http://8.218.255.222:28898' },
+      { key: '/temu', url: ' http://127.0.0.1:25550' },
+      { key: '/shein', url: 'http://127.0.0.1:35549' },
+      { key: '/tiktok', url: 'http://127.0.0.1:35548' },
+      { key: '/sf-factory/', url: 'http://127.0.0.1:35560' },
+      { key: '/sf-factory-v2', url: 'http://127.0.0.1:35561' },
+      { key: '/ozon', url: 'http://127.0.0.1:35551' },
+      { key: '/dxm', url: 'http://127.0.0.1:35552' },
+      { key: '/profit', url: 'http://localhost:35556' },
+      { key: '/mkd', url: 'http://127.0.0.1:35557' },
+      { key: '/chat', url: 'http://34.217.178.223:35559' },
+      { key: '/product_sys', url: 'http://127.0.0.1:35571' },
+      { key: '/factory_warehouse', url: 'http://127.0.0.1:38889' },
+
+      { key: '/five_miles', url: 'http://127.0.0.1:28885' },
+  ],
+}

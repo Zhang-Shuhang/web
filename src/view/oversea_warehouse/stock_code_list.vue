@@ -1,0 +1,183 @@
+<template>
+  <div>
+    <div class="search-term">
+      <el-form class="table-form" ref="elForm" :model="searchInfo" size="mini" label-width="100px"
+               label-position="right">
+        <el-row :gutter="5">
+          <el-col :xs="6" :sm="6" :lg="8">
+            <el-form-item label-width="0">
+              <el-input placeholder="货号" v-model="searchInfo.sku_code" clearable filterable @keyup.enter.native="onSubmit">
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="6" :sm="6" :lg="4">
+            <el-button size="mini" type="primary" style="width: 100%" @click="onSubmit">查询</el-button>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <el-table class="table-body" ref="multipleTable" :data="tableData" border height="100%" @sort-change="sortChange"
+                size="mini"
+                :header-cell-style="{'background-color': 'black', 'color': '#fff'}" :default-expand-all="false"
+                @selection-change="selectionChange">
+        <el-table-column type="selection" width="40" align="center" fixed></el-table-column>
+        <el-table-column label="编号" align="center" prop="id" sortable="custom">
+        </el-table-column>
+        <el-table-column label="货号" align="center" prop="sku_code" sortable="custom">
+        </el-table-column>
+        <el-table-column label="重量(g)" align="center" prop="weight" sortable="custom">
+        </el-table-column>
+      </el-table>
+
+      <el-pagination
+          :current-page="page"
+          :page-size="pageSize"
+          :style="{textAlign:'right'}"
+          :page-sizes="[5, 10, 20, 30, 50, 100, 200, 300, 500, 1000]"
+          :total="total"
+          background
+          @current-change="handleCurrentChange"
+          @size-change="handleSizeChange"
+          layout="total, prev, next, jumper, sizes"
+      ></el-pagination>
+    </div>
+  </div>
+
+</template>
+
+<script>
+import infoList from '@/components/mixins/infoList'
+import {
+  overseasWarehouseStockCodeList,
+} from "@/api/oversea_warehouse/list";
+
+export default {
+  components: {
+  },
+  mixins: [infoList],
+  data() {
+    return {
+      listApi: overseasWarehouseStockCodeList,
+
+      selectRows: [],
+    }
+  },
+  methods: {
+    onSubmit() {
+      this.page = 1
+      this.getTableData()
+    },
+    selectionChange(val) {
+      this.selectRows = val
+
+      if (this.selectRows.length <= 0) {
+        return
+      }
+
+      let ids = this.selectRows.map((item) => {
+        return item.id
+      })
+      this.copy(ids.join(" "))
+    },
+    copy(text) {
+      this.$copyText(text).then( () => {
+        this.$message('复制 ' + text + ' 成功')
+      }, function () {
+        this.$message.error('复制 ' + text + ' 失败')
+      })
+    },
+  },
+  filters: {},
+  mounted() {
+  },
+  async created() {
+    this.pageSize = 200
+    this.getTableData()
+  }
+}
+</script>
+<style scoped lang="scss">
+.item-container {
+  .item {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    height: 130px;
+    padding: 0px;
+  }
+
+  .item-bottom {
+    border-bottom: 1px solid lightblue;
+  }
+
+  .footer {
+    background: lightblue;
+    height: 24px;
+    font-size: 12px;
+    line-height: 24px;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+}
+
+::v-deep .el-row {
+  padding: 0;
+}
+
+::v-deep .el-table .cell {
+  padding: 0;
+}
+
+.el-row {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+::v-deep .el-form-item, .el-container .admin-box .search-term .el-form-item {
+  margin-bottom: 0px;
+}
+
+.button-new-tag {
+  height: 24px;
+  line-height: 22px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.input-new-tag {
+  height: 24px;
+  line-height: 22px;
+  width: 100%;
+  vertical-align: bottom;
+}
+
+::v-deep .select .el-input--suffix .el-input__inner {
+  padding-right: 0px;
+}
+
+::v-deep .select .el-input__suffix {
+  display: none;
+}
+
+.input-right-zero {
+  padding-right: 0px !important;
+}
+
+.one-line {
+  display: inline-block;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+
+.two-line {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; //行数
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+</style>
